@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hafıza Oyunu</title>
+    <link rel="stylesheet" href="hafizastyle.css">
+</head>
+<body>
+    <div id="karakterAlani">
+        <img id="karakterSecilen" src="" alt="Seçilen Karakter">
+    </div>
+
+    <div id="hafizaOyunAlani"></div>
+
+    <div id="altinlar"></div>
+
+    <script src="jshafiza.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let secilenKarakter = localStorage.getItem("secilenKarakter");
+            if (secilenKarakter) {
+                document.getElementById("karakterSecilen").src = "assets/" + secilenKarakter;
+            }
+        });
+    </script>
+</body>
+</html>

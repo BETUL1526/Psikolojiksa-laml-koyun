@@ -1,0 +1,61 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-image: url("assets/arka_plan.jpg"); /* Daha profesyonel arka plan resmi */
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: #333;
+}
+
+#karakterAlani {
+    margin: 20px auto; /* Karakteri ortala */
+    width: 150px; /* Karakter alanını ayarla */
+}
+
+#karakterSecilen {
+    width: 150px;
+    height: auto;
+}
+
+#hafizaOyunAlani {
+    display: grid;
+    grid-template-columns: repeat(5, 120px); /* 10 kart için 5 sütun */
+    gap: 10px;
+    justify-content: center;
+    margin: 20px auto; /* Kartları ortala */
+    width: 620px; /* Kart alanını ayarla */
+}
+
+.kart {
+    width: 120px;
+    height: 120px;
+    background-color: #f0f0f0;
+    border: 2px solid #ccc;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    font-weight: bold;
+    transition: transform 0.3s;
+}
+
+.kart:hover {
+    transform: scale(1.1);
+}
+
+.acik {
+    background-color: #007bff;
+    color: white;
+}
+
+#altinlar {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+#altinlar img {
+    width: 30px;
+    margin: 5px;
+}
