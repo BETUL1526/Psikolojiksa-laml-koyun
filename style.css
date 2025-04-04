@@ -1,18 +1,18 @@
 body {
     margin: 0;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100vh;
     background-color: #f0f0f0;
+    overflow: hidden;
 }
 
 #okulResmi {
     transition: transform 2s ease-in-out;
-    width: 100vw; /* Tam ekran genişlik */
-    height: 100vh; /* Tam ekran yükseklik */
-    object-fit: cover; /* Resmi tam ekrana sığdır */
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
     cursor: pointer;
 }
 
@@ -24,44 +24,31 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 30px;
 }
 
-.karakter-secim img, #secilenKarakter {
+.karakter {
     width: 150px;
     height: 150px;
     object-fit: cover;
     border-radius: 10px;
     cursor: pointer;
-    transition: transform 0.3s ease-in-out;
-    margin: 0 10px;
+    transition: transform 0.5s ease-in-out;
+    animation: hareket 3s infinite alternate ease-in-out;
 }
 
-.karakter-secim img:hover {
-    transform: scale(1.1);
+@keyframes hareket {
+    0% {
+        transform: translateY(0px) scale(1);
+    }
+    50% {
+        transform: translateY(-10px) scale(1.05);
+    }
+    100% {
+        transform: translateY(0px) scale(1);
+    }
 }
 
-.kart {
-    width: 100px;
-    height: 100px;
-    background-color: white;
-    border: 2px solid #ccc;
-    text-align: center;
-    line-height: 100px;
-    font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
-    background-image: url('assets/arka_yuz.png'); /* Kartların arka yüzü */
-    background-size: cover;
-}
-
-.kart.acik {
-    background-color: #007bff;
-    color: white;
-    background-image: none; /* Açık kartların arka yüzü yok */
-}
-
-#altinlar img {
-    width: 30px;
-    margin: 5px;
+.karakter:hover {
+    transform: scale(1.2);
 }

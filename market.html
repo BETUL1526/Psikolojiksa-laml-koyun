@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>İyi Oluş Ödülleri</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .marketContainer {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            max-width: 1200px;
+            margin: 20px auto;
+        }
+
+        .marketItem {
+            width: 30%;
+            box-sizing: border-box;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            text-align: center;
+        }
+
+        .marketItem img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .marketItem h2 {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .marketItem button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+
+        .marketItem button:hover {
+            background-color: #0056b3;
+        }
+
+        @media (max-width: 768px) {
+            .marketItem {
+                width: 50%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .marketItem {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>İyi Oluş Ödülleri</h1>
+
+    <div class="marketContainer">
+        <div class="marketItem">
+            <img src="https://image.pollinations.ai/prompt/kedi?width=200&height=200&nologo=true" alt="Kedi">
+            <h2>Kedi Arkadaşı</h2>
+            <button onclick="buyItem('kedi', 'https://image.pollinations.ai/prompt/kedi?width=200&height=200&nologo=true')">Satın Al</button>
+        </div>
+
+        <div class="marketItem">
+            <img src="https://image.pollinations.ai/prompt/kopek?width=200&height=200&nologo=true" alt="Köpek">
+            <h2>Köpek Arkadaşı</h2>
+            <button onclick="buyItem('kopek', 'https://image.pollinations.ai/prompt/kopek?width=200&height=200&nologo=true')">Satın Al</button>
+        </div>
+
+        <div class="marketItem">
+            <img src="https://image.pollinations.ai/prompt/gitar?width=200&height=200&nologo=true" alt="Gitar">
+            <h2>Gitar</h2>
+            <button onclick="buyItem('gitar', 'https://image.pollinations.ai/prompt/gitar?width=200&height=200&nologo=true')">Satın Al</button>
+        </div>
+
+        <div class="marketItem">
+            <img src="https://image.pollinations.ai/prompt/keman?width=200&height=200&nologo=true" alt="Keman">
+            <h2>Keman</h2>
+            <button onclick="buyItem('keman', 'https://image.pollinations.ai/prompt/keman?width=200&height=200&nologo=true')">Satın Al</button>
+        </div>
+
+        <div class="marketItem">
+            <img src="https://image.pollinations.ai/prompt/tuval?width=200&height=200&nologo=true" alt="Tuval">
+            <h2>Tuval ve Boya</h2>
+            <button onclick="buyItem('tuval', 'https://image.pollinations.ai/prompt/tuval?width=200&height=200&nologo=true')">Satın Al</button>
+        </div>
+
+        <div class="marketItem">
+            <img src="https://image.pollinations.ai/prompt/piyano?width=200&height=200&nologo=true" alt="Piyano">
+            <h2>Piyano</h2>
+            <button onclick="buyItem('piyano', 'https://image.pollinations.ai/prompt/piyano?width=200&height=200&nologo=true')">Satın Al</button>
+        </div>
+
+        <div class="marketItem">
+            <img src="https://image.pollinations.ai/prompt/satranc?width=200&height=200&nologo=true" alt="Satranç">
+            <h2>Satranç</h2>
+            <button onclick="buyItem('satranc', 'https://image.pollinations.ai/prompt/satranc?width=200&height=200&nologo=true')">Satın Al</button>
+        </div>
+
+        <div class="marketItem">
+            <img src="https://image.pollinations.ai/prompt/futbol-topu?width=200&height=200&nologo=true" alt="Futbol Topu">
+            <h2>Futbol Topu</h2>
+            <button onclick="buyItem('futbol', 'https://image.pollinations.ai/prompt/futbol-topu?width=200&height=200&nologo=true')">Satın Al</button>
+        </div>
+
+        <div class="marketItem">
+            <img src="https://image.pollinations.ai/prompt/basketbol-topu?width=200&height=200&nologo=true" alt="Basketbol Topu">
+            <h2>Basketbol Topu</h2>
+            <button onclick="buyItem('basketbol', 'https://image.pollinations.ai/prompt/basketbol-topu?width=200&height=200&nologo=true')">Satın Al</button>
+        </div>
+    </div>
+
+    <script>
+        function buyItem(item, imageUrl) {
+            const messages = {
+                'kedi': "Kedi arkadaşınla oyun oynamak, stresi azaltır ve keyifli vakit geçirmeni sağlar.",
+                'kopek': "Köpek arkadaşınla dışarıda vakit geçirmek, enerjini atmana ve sosyalleşmene yardımcı olur.",
+                'gitar': "Gitar çalmak, yaratıcılığını geliştirir ve zihinsel rahatlama sağlar.",
+                'keman': "Keman çalmak, odaklanmanı geliştirir ve duygusal dengeyi sağlar.",
+                'tuval': "Sanat yapmak, duygusal rahatlama ve iyilik hali sağlar.",
+                'piyano': "Piyano çalmak, zihinsel uyanıklığı artırır ve duygusal sağlığı iyileştirir.",
+                'satranc': "Satranç oynamak, stratejik düşünmeyi geliştirir ve zihinsel sağlamlığı artırır.",
+                'futbol': "Futbol oynamak, fiziksel sağlığı geliştirir ve sosyal bağlantı kurmanı sağlar.",
+                'basketbol': "Basketbol oynamak, ruh halini iyileştirir ve stresle başa çıkmanı sağlar.",
+            };
+
+            alert(messages[item] || `${item} alındı!`);
+            localStorage.setItem("alinanHediye", imageUrl);
+            window.location.href = "senaryo.html";
+        }
+    </script>
+</body>
+</html>

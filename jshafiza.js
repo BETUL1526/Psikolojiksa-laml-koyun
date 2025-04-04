@@ -1,82 +1,85 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const oyunAlani = document.getElementById("hafizaOyunAlani");
-    const kartlar = ["Güçlüyüm", "Başarılıyım", "Mutluyum", "Özgüvenliyim", "Güçlüyüm", "Başarılıyım", "Mutluyum", "Özgüvenliyim"];
-    let acikKartlar = [];
-    let eslesenKartlar = [];
-    let altinSayisi = 0;
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hafıza Oyunu</title>
+    <style>
+        .kart {
+            width: 100px;
+            height: 100px;
+            background-color: lightgray;
+            display: inline-block;
+            margin: 10px;
+            text-align: center;
+            line-height: 100px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="oyunAlani"></div>
+    <script>
+        const oyunAlani = document.getElementById("oyunAlani");
+        const kartlar = [
+            "Dayanıklılık", "Umut", "Özşefkat", "Motivasyon", "İnanç", 
+            "Dayanıklılık", "Umut", "Özşefkat", "Motivasyon", "İnanç"
+        ];
+        let secilenKartlar = [];
+        let eslesenKartSayisi = 0;
 
-    kartlar.sort(() => 0.5 - Math.random());
-
-    function kartTiklama() {
-        if (acikKartlar.length < 2 && !acikKartlar.includes(this) && !eslesenKartlar.includes(this)) {
-            this.style.backgroundImage = "none";
-            this.textContent = this.dataset.metin;
-            this.classList.add("acik");
-            acikKartlar.push(this);
-
-            if (acikKartlar.length === 2) {
-                if (acikKartlar[0].dataset.metin === acikKartlar[1].dataset.metin) {
-                    setTimeout(() => {
-                        acikKartlar.forEach(kart => kart.remove());
-                        eslesenKartlar.push(...acikKartlar);
-                        acikKartlar = [];
-                        altinSayisi++;
-                        altinGuncelle();
-
-                        if (eslesenKartlar.length === kartlar.length) {
-                            oyunBitti();
-                        }
-                    }, 500);
-                } else {
-                    setTimeout(() => {
-                        acikKartlar.forEach(kart => {
-                            kart.style.backgroundImage = "url('assets/arkayuz.jpg')";
-                            kart.textContent = "";
-                            kart.classList.remove("acik");
-                        });
-                        acikKartlar = [];
-                    }, 1000);
-                }
+        function karistir(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
             }
         }
-    }
 
-    for (let i = 0; i < kartlar.length; i++) {
-        const kart = document.createElement("div");
-        kart.classList.add("kart");
-        kart.dataset.index = i;
-        kart.dataset.metin = kartlar[i];
-        kart.style.backgroundImage = "url('assets/arkayuz.jpg')";
-        kart.addEventListener("click", kartTiklama);
-        oyunAlani.appendChild(kart);
-    }
+        karistir(kartlar);
 
-    function altinGuncelle() {
-        document.getElementById("altinlar").innerHTML = `<img src="assets/altin.png" width="50px">`.repeat(altinSayisi);
-    }
+        kartlar.forEach((kelime, index) => {
+            const kart = document.createElement("div");
+            kart.classList.add("kart");
+            kart.dataset.metin = kelime;
+            kart.dataset.index = index;
+            kart.addEventListener("click", kartTiklama);
+            oyunAlani.appendChild(kart);
+        });
 
-    function oyunBitti() {
-        let kalp = document.createElement("img");
-        kalp.src = "assets/oduller/kalpler.jpg";
-        kalp.style.position = "fixed";
-        kalp.style.top = "50%";
-        kalp.style.left = "50%";
-        kalp.style.width = "50px";
-        kalp.style.height = "50px";
-        kalp.style.transform = "translate(-50%, -50%)";
-        kalp.style.transition = "all 2s ease-in-out";
-        kalp.style.zIndex = "9999"; // Önde olsun
+        function kartTiklama() {
+            if (secilenKartlar.length < 2 && !this.classList.contains("acik")) {
+                this.textContent = this.dataset.metin;
+                this.classList.add("acik");
+                secilenKartlar.push(this);
+            }
 
-        document.body.appendChild(kalp);
-        
-        setTimeout(() => {
-            kalp.style.width = "100vw"; // Kalp tüm ekranı kaplasın
-            kalp.style.height = "100vh";
-        }, 100);
+            if (secilenKartlar.length === 2) {
+                setTimeout(checkMatch, 500);
+            }
+        }
 
-        setTimeout(() => {
-            window.location.href = "senaryo.html"; // Senaryo oyununa yönlendirme
-        }, 3000); // 3 saniye sonra senaryo oyununa geç
-    }
-});
-
+        function checkMatch() {
+            const [kart1, kart2] = secilenKartlar;
+            if (kart1 && kart2 && kart1.dataset.metin === kart2.dataset.metin) {
+                kart1.removeEventListener("click", kartTiklama);
+                kart2.removeEventListener("click", kartTiklama);
+                eslesenKartSayisi += 2;
+            } else {
+                if (kart1) kart1.textContent = "";
+                if (kart2) kart2.textContent = "";
+                if (kart1) kart1.classList.remove("acik");
+                if (kart2) kart2.classList.remove("acik");
+            }
+            secilenKartlar = [];
+            
+            if (eslesenKartSayisi === kartlar.length) {
+                setTimeout(() => {
+                    alert("Tebrikler! Psikolojik sağlamlık, umut ve özşefkatle güçlenir. Sen harikasın!");
+                    window.location.href = "market.html";
+                }, 500);
+            }
+        }
+    </script>
+</body>
+</html>

@@ -50,6 +50,33 @@ let senaryoIndex = 0;
 let dogruCevapSayisi = 0;
 let yanlisCevapSayisi = 0;
 
+//  Karakter ve hediye gösterimi
+function karakterVeHediyeGoster() {
+    const karakterPath = localStorage.getItem("secilenKarakter");
+    const hediyePath = localStorage.getItem("alinanHediye");
+
+    const container = document.getElementById("karakterVeHediye");
+
+    if (karakterPath) {
+        const karakterImg = document.createElement("img");
+        karakterImg.src = "assets/" + karakterPath;
+        karakterImg.style.width = "100px";
+        karakterImg.style.height = "100px";
+        karakterImg.alt = "Karakter";
+        container.appendChild(karakterImg);
+    }
+
+    if (hediyePath) {
+        const hediyeImg = document.createElement("img");
+        hediyeImg.src = hediyePath;
+        hediyeImg.style.width = "100px";
+        hediyeImg.style.height = "100px";
+        hediyeImg.alt = "Hediye";
+        container.appendChild(hediyeImg);
+    }
+}
+
+//  Senaryo oyun fonksiyonları
 function senaryoGoster() {
     const senaryo = senaryolar[senaryoIndex];
     document.getElementById("durum").textContent = senaryo.durum;
@@ -57,7 +84,7 @@ function senaryoGoster() {
     const cevaplarDiv = document.getElementById("cevaplar");
     cevaplarDiv.innerHTML = "";
 
-    senaryo.cevaplar.forEach(cevap => {
+    senaryo.cevaplar.forEach((cevap) => {
         const cevapBtn = document.createElement("button");
         cevapBtn.textContent = cevap.metin;
         cevapBtn.addEventListener("click", () => cevapKontrol(cevap.dogru));
@@ -68,10 +95,10 @@ function senaryoGoster() {
 function cevapKontrol(dogru) {
     if (dogru) {
         dogruCevapSayisi++;
-        alert("Doğru cevap! Devam et.");
+        mesajKutusuGoster("Harika bir seçim! Bu, durumu ele almanın etkili bir yolu.", "https://image.pollinations.ai/prompt/onay%20gif?width=200&height=200&nologo=true"); // Doğru cevap GIF'i
     } else {
         yanlisCevapSayisi++;
-        alert("Yanlış cevap! Tekrar dene.");
+        mesajKutusuGoster("Bu tepki, otomatik bir düşünce olabilir. Biraz daha derinlemesine düşünerek farklı bir seçenek bulabilirsin.", "https://image.pollinations.ai/prompt/tekrar%20dene%20png?width=200&height=200&nologo=true"); // BDT terapisti tarzında geri bildirim
     }
 
     if (yanlisCevapSayisi === 3) {
@@ -82,6 +109,25 @@ function cevapKontrol(dogru) {
         senaryoIndex++;
         senaryoGoster();
     }
+}
+
+function mesajKutusuGoster(mesaj, resim) {
+    const mesajKutusu = document.createElement("div");
+    mesajKutusu.classList.add("mesaj-kutusu");
+
+    const mesajMetni = document.createElement("p");
+    mesajMetni.textContent = mesaj;
+    mesajKutusu.appendChild(mesajMetni);
+
+    const mesajResmi = document.createElement("img");
+    mesajResmi.src = resim;
+    mesajKutusu.appendChild(mesajResmi);
+
+    document.body.appendChild(mesajKutusu);
+
+    setTimeout(() => {
+        document.body.removeChild(mesajKutusu);
+    }, 3000);
 }
 
 function oyunBitti() {
@@ -108,4 +154,5 @@ function oyunBitti() {
     }, 3000);
 }
 
-senaryoGoster(); // senaryoGoster fonksiyonunu çağır
+senaryoGoster();
+karakterVeHediyeGoster();

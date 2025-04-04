@@ -1,29 +1,44 @@
 body {
     font-family: Arial, sans-serif;
     text-align: center;
-    background-image: url("assets/arka_plan.jpg"); /* Daha profesyonel arka plan resmi */
+    background-image: url("assets/arka_plan.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     color: #333;
 }
 
 #karakterAlani {
-    margin: 20px auto; /* Karakteri ortala */
-    width: 150px; /* Karakter alanını ayarla */
+    position: absolute; /* Mutlak konumlandırma */
+    top: 20px;
+    left: 20px;
+    width: 150px;
 }
 
 #karakterSecilen {
     width: 150px;
     height: auto;
+    animation: karakterHareket 3s infinite alternate ease-in-out; /* Karakter animasyonu */
+}
+
+@keyframes karakterHareket {
+    0% {
+        transform: translateY(0px) scale(1);
+    }
+    50% {
+        transform: translateY(-10px) scale(1.05);
+    }
+    100% {
+        transform: translateY(0px) scale(1);
+    }
 }
 
 #hafizaOyunAlani {
     display: grid;
-    grid-template-columns: repeat(5, 120px); /* 10 kart için 5 sütun */
+    grid-template-columns: repeat(5, 120px);
     gap: 10px;
     justify-content: center;
-    margin: 20px auto; /* Kartları ortala */
-    width: 620px; /* Kart alanını ayarla */
+    margin: 20px auto;
+    width: 620px;
 }
 
 .kart {

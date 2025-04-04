@@ -1,29 +1,257 @@
 <!DOCTYPE html>
 <html lang="tr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hafıza Oyunu</title>
-    <link rel="stylesheet" href="hafizastyle.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            text-align: center;
+            background-color: #222;
+            color: white;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        #characterArea {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        #character {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            animation: characterAnimation 4s infinite alternate ease-in-out;
+        }
+
+        @keyframes characterAnimation {
+            0% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        .board {
+            display: grid;
+            grid-template-columns: repeat(4, 100px);
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            width: 100px;
+            height: 100px;
+            background-color: #444;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            cursor: pointer;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        .card:hover {
+            background-color: #666;
+        }
+
+        .hidden {
+            background-color: #222;
+            color: #222;
+        }
+
+        .matched {
+            opacity: 0;
+        }
+
+        #message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 36px;
+            color: white;
+            opacity: 0;
+            animation: messageAnimation 5s forwards;
+        }
+
+        @keyframes messageAnimation {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.5);
+            }
+
+            50% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1.2);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+
+        #goldContainer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .gold {
+            width: 30px;
+            height: 30px;
+            background-image: url('assets/altin.png');
+            background-size: cover;
+            animation: goldAnimation 1s forwards;
+        }
+
+        @keyframes goldAnimation {
+            to {
+                transform: translate(0, 0);
+                opacity: 0;
+            }
+        }
+    </style>
 </head>
+
 <body>
-    <div id="karakterAlani">
-        <img id="karakterSecilen" src="" alt="Seçilen Karakter">
+    <div id="characterArea">
+        <img id="character" src="" alt="Karakter">
     </div>
 
-    <div id="hafizaOyunAlani"></div>
-
-    <div id="altinlar"></div>
-
-    <script src="jshafiza.js"></script>
+    <div class="board" id="gameBoard"></div>
+    <div id="message"></div>
+    <div id="goldContainer"></div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            let secilenKarakter = localStorage.getItem("secilenKarakter");
-            if (secilenKarakter) {
-                document.getElementById("karakterSecilen").src = "assets/" + secilenKarakter;
+        const words = [
+            "Kendime", "güvenirim", "ve", "zorluklarla", "başa", "çıkarım",
+            "Kendime", "güvenirim", "ve", "zorluklarla", "başa", "çıkarım"
+        ];
+
+        let cards = [...words];
+        let flippedCards = [];
+        let matchedPairs = 0;
+        let selectedCharacter = localStorage.getItem('secilenKarakter');
+        let goldCount = 0;
+
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
             }
-        });
+        }
+
+        function createBoard() {
+            shuffle(cards);
+            const board = document.getElementById("gameBoard");
+            cards.forEach((word, index) => {
+                let card = document.createElement("div");
+                card.classList.add("card", "hidden");
+                card.dataset.word = word;
+                card.dataset.index = index;
+                card.addEventListener("click", flipCard);
+                board.appendChild(card);
+            });
+
+            if (selectedCharacter) {
+                const characterImg = document.getElementById('character');
+                characterImg.src = `assets/${selectedCharacter}`;
+            }
+        }
+
+        function flipCard() {
+            if (flippedCards.length < 2 && !this.classList.contains("matched") && !flippedCards.includes(this)) {
+                this.classList.remove("hidden");
+                this.textContent = this.dataset.word;
+                flippedCards.push(this);
+            }
+
+            if (flippedCards.length === 2) {
+                setTimeout(checkMatch, 1000);
+            }
+        }
+
+        function checkMatch() {
+            if (flippedCards.length < 2 || !flippedCards[0] || !flippedCards[1]) return;
+
+            if (flippedCards[0].dataset.word === flippedCards[1].dataset.word) {
+                flippedCards[0].removeEventListener("click", flipCard);
+                flippedCards[1].removeEventListener("click", flipCard);
+                flippedCards[0].classList.add("matched");
+                flippedCards[1].classList.add("matched");
+                matchedPairs++;
+                goldCount++;
+                createGoldAnimation(flippedCards[0]);
+                createGoldAnimation(flippedCards[1]);
+
+                if (matchedPairs === words.length / 2) {
+                    showMessage();
+                }
+            } else {
+                flippedCards[0].classList.add("hidden");
+                flippedCards[1].classList.add("hidden");
+                flippedCards[0].textContent = "";
+                flippedCards[1].textContent = "";
+            }
+
+            flippedCards = [];
+        }
+
+        function showMessage() {
+            const messageDiv = document.getElementById('message');
+            messageDiv.textContent = "Kendime güvenirim ve zorluklarla başa çıkarım!";
+            messageDiv.style.opacity = 1;
+
+            // Market'e yönlendirme 5 saniye sonra
+            setTimeout(() => {
+                window.location.href = "market.html";
+            }, 5000);
+        }
+
+        function createGoldAnimation(card) {
+            const gold = document.createElement('div');
+            gold.classList.add('gold');
+            gold.style.left = card.offsetLeft + card.offsetWidth / 2 + 'px';
+            gold.style.top = card.offsetTop + card.offsetHeight / 2 + 'px';
+            document.body.appendChild(gold);
+
+            setTimeout(() => {
+                gold.style.transform = `translateY(${window.innerHeight - card.offsetTop - card.offsetHeight / 2 - 20}px)`;
+                const goldContainer = document.getElementById('goldContainer');
+                goldContainer.appendChild(gold);
+            }, 0);
+        }
+
+        createBoard();
     </script>
 </body>
+
 </html>

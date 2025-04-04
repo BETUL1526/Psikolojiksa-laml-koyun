@@ -11,5 +11,5 @@ document.addEventListener("DOMContentLoaded", function() {
 
 function karakterSec(gorsel) {
     localStorage.setItem("secilenKarakter", gorsel);
-    window.location.href = "hafiza.html"; // hafiza.html sayfasına yönlendir
+    window.location.href = "hafiza.html";
 }

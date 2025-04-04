@@ -1,36 +1,62 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
+    background: #f2f2f2;
+    margin: 0;
+    padding: 0;
     text-align: center;
-    background: url("assets/kutuphane.png") no-repeat center center;
-    background-size: cover;
-    color: white;
-}
-
-h1 {
-    font-size: 24px;
-    margin-top: 20px;
 }
 
 #senaryoEkrani {
-    max-width: 600px;
-    margin: auto;
-    background: rgba(0, 0, 0, 0.7);
+    padding: 30px;
+}
+
+.karakter-hediye-alani {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+.karakter, .hediye {
+    width: 150px;
+    height: 150px;
+    border-radius: 12px;
+    object-fit: cover;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+#cevaplar button {
+    padding: 12px 20px;
+    margin: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+    background-color: #4CAF50;
+    color: white;
+    transition: background 0.3s ease;
+}
+
+#cevaplar button:hover {
+    background-color: #45a049;
+}
+
+.mesaj-kutusu {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #e0f7fa; /* Tatlı bir arka plan rengi */
     padding: 20px;
     border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Hafif gölge */
+    text-align: center;
+    z-index: 1000; /* Diğer elementlerin üzerinde görünmesini sağlar */
 }
 
-button {
-    width: 100%;
-    margin: 10px 0;
-    padding: 10px;
-    background: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-button:hover {
-    background: #0056b3;
+.mesaj-kutusu img {
+    width: 100px;
+    height: 100px;
+    margin-top: 10px;
 }
