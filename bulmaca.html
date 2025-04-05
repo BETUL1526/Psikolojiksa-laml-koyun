@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Olumlu Düşünce Eşleştirme</title>
+    <link rel="stylesheet" href="bulmacastyle.css">
+    <style>
+        #karakterVeHediyelerBulmaca {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 20px; /* Bulmaca içeriğiyle boşluk bırakalım */
+        }
+
+        #karakterVeHediyelerBulmaca img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="karakterVeHediyelerBulmaca">
+        </div>
+        <div class="puzzle">
+            <p id="negative-thought"></p>
+            <div class="options">
+                <button class="option-button" data-correct="false"></button>
+                <button class="option-button" data-correct="false"></button>
+                <button class="option-button" data-correct="false"></button>
+                <button class="option-button" data-correct="false"></button>
+            </div>
+        </div>
+        <div id="feedback-area" class="feedback"></div>
+        <div id="animation-area" class="animation"></div>
+    </div>
+    <script src="bulmaca.js"></script>
+</body>
+</html>

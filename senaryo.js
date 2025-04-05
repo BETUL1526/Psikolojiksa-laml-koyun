@@ -56,6 +56,7 @@ function karakterVeHediyeGoster() {
     const hediyePath = localStorage.getItem("alinanHediye");
 
     const container = document.getElementById("karakterVeHediye");
+    container.innerHTML = ""; // Önceki içeriği temizle
 
     if (karakterPath) {
         const karakterImg = document.createElement("img");
@@ -95,10 +96,10 @@ function senaryoGoster() {
 function cevapKontrol(dogru) {
     if (dogru) {
         dogruCevapSayisi++;
-        mesajKutusuGoster("Harika bir seçim! Bu, durumu ele almanın etkili bir yolu.", "https://image.pollinations.ai/prompt/onay%20gif?width=200&height=200&nologo=true"); // Doğru cevap GIF'i
+        mesajKutusuGoster("Harika bir seçim! Bu, durumu ele almanın etkili bir yolu.", "https://image.pollinations.ai/prompt/onay%20gif?width=200&height=200&nologo=true");
     } else {
         yanlisCevapSayisi++;
-        mesajKutusuGoster("Bu tepki, otomatik bir düşünce olabilir. Biraz daha derinlemesine düşünerek farklı bir seçenek bulabilirsin.", "https://image.pollinations.ai/prompt/tekrar%20dene%20png?width=200&height=200&nologo=true"); // BDT terapisti tarzında geri bildirim
+        mesajKutusuGoster("Bu tepki, otomatik bir düşünce olabilir. Biraz daha derinlemesine düşünerek farklı bir seçenek bulabilirsin.", "https://image.pollinations.ai/prompt/tekrar%20dene%20png?width=200&height=200&nologo=true");
     }
 
     if (yanlisCevapSayisi === 3) {
@@ -131,27 +132,8 @@ function mesajKutusuGoster(mesaj, resim) {
 }
 
 function oyunBitti() {
-    const odulImg = document.createElement("img");
-    odulImg.src = "assets/oduller/cicekler.jpg";
-    odulImg.style.width = "100%";
-    odulImg.style.height = "100%";
-    odulImg.style.position = "absolute";
-    odulImg.style.top = "0";
-    odulImg.style.left = "0";
-    document.body.appendChild(odulImg);
-
-    const tebrikler = document.createElement("h1");
-    tebrikler.textContent = "Sen tam bir psikolojik sağlamlık ustasısın!";
-    tebrikler.style.position = "absolute";
-    tebrikler.style.top = "50%";
-    tebrikler.style.left = "50%";
-    tebrikler.style.transform = "translate(-50%, -50%)";
-    tebrikler.style.color = "white";
-    document.body.appendChild(tebrikler);
-
-    setTimeout(() => {
-        window.location.href = "https://piga-ai.onrender.com";
-    }, 3000);
+    localStorage.setItem("senaryoTamamlandi", "true"); // Senaryonun tamamlandığını işaretle
+    window.location.href = "market.html"; // Markete geri dön
 }
 
 senaryoGoster();

@@ -1,45 +1,66 @@
 body {
     font-family: 'Arial', sans-serif;
-    background: #f2f2f2;
+    background-color: #e0f7fa; /* Açık mavi bir arka plan */
     margin: 0;
     padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* İçeriği dikeyde ortala */
+    align-items: center; /* İçeriği yatayda ortala */
     text-align: center;
+    min-height: 100vh;
 }
 
 #senaryoEkrani {
     padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .karakter-hediye-alani {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 40px;
-    margin-bottom: 40px;
+    gap: 20px;
+    margin-bottom: 30px;
 }
 
 .karakter, .hediye {
-    width: 150px;
-    height: 150px;
-    border-radius: 12px;
+    width: 80px; /* Görsel boyutları biraz daha küçültüldü */
+    height: 80px; /* Görsel boyutları biraz daha küçültüldü */
+    border-radius: 50%; /* Yuvarlak görseller */
     object-fit: cover;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#durum {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
 }
 
 #cevaplar button {
-    padding: 12px 20px;
-    margin: 10px;
+    padding: 12px 25px;
+    margin: 10px 0;
     font-size: 16px;
     cursor: pointer;
     border: none;
     border-radius: 8px;
-    background-color: #4CAF50;
+    background-color: #28a745; /* Yeşil bir buton rengi */
     color: white;
     transition: background 0.3s ease;
+    width: 250px; /* Buton genişliği biraz azaltıldı */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 #cevaplar button:hover {
-    background-color: #45a049;
+    background-color: #218838;
 }
 
 .mesaj-kutusu {
@@ -47,16 +68,16 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: #e0f7fa; /* Tatlı bir arka plan rengi */
+    background-color: #fff;
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Hafif gölge */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
-    z-index: 1000; /* Diğer elementlerin üzerinde görünmesini sağlar */
+    z-index: 1000;
 }
 
 .mesaj-kutusu img {
-    width: 100px;
-    height: 100px;
+    width: 60px;
+    height: 60px;
     margin-top: 10px;
 }
