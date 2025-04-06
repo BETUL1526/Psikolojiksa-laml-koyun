@@ -73,6 +73,46 @@
                 width: 100%;
             }
         }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #fff;
+            border: 2px solid #007bff;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .notification img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+
+        .notification p {
+            margin: 0;
+            font-size: 1em;
+            color: #333;
+        }
+
+        .notification button {
+            background-color: transparent;
+            border: none;
+            font-size: 1.2em;
+            cursor: pointer;
+            color: #007bff;
+        }
+
+        .notification button:hover {
+            color: #0056b3;
+        }
     </style>
 </head>
 <body>
@@ -134,6 +174,12 @@
         </div>
     </div>
 
+    <div class="notification" id="notification">
+        <img id="notificationImage" src="" alt="Hediye Resmi">
+        <p id="notificationMessage"></p>
+        <button onclick="closeNotification()">✖</button>
+    </div>
+
     <script>
         function buyItem(item, imageUrl) {
             const messages = {
@@ -148,25 +194,42 @@
                 'basketbol': "Basketbol oynamak, ruh halini iyileştirir ve stresle başa çıkmanı sağlar.",
             };
 
-            alert(messages[item] || item + " alındı!");
+            showNotification(messages[item], imageUrl);
 
             const ilkHediye = localStorage.getItem("alinanHediye");
 
             if (localStorage.getItem("bulmacaTamamlandi")) {
                 localStorage.removeItem("bulmacaTamamlandi");
                 localStorage.setItem("ucuncuHediye", imageUrl);
-                window.location.href = "kelime_oyunu.html";
+                setTimeout(() => window.location.href = "kelime_oyunu.html", 8000);
             } else if (localStorage.getItem("senaryoTamamlandi")) {
                 localStorage.removeItem("senaryoTamamlandi");
                 localStorage.setItem("ikinciHediye", imageUrl);
-                window.location.href = "bulmaca.html";
+                setTimeout(() => window.location.href = "bulmaca.html", 8000);
             } else if (ilkHediye) {
-                window.location.href = "senaryo.html";
+                setTimeout(() => window.location.href = "senaryo.html", 8000);
             } else {
                 localStorage.setItem("alinanHediye", imageUrl);
-                // Hafıza oyunundan sonra buraya düşecek ve ilk hediyeyi kaydedecek.
-                // Bir sonraki market seçiminde senaryoya gidecek.
             }
+        }
+
+        function showNotification(message, imageUrl) {
+            const notification = document.getElementById("notification");
+            const notificationImage = document.getElementById("notificationImage");
+            const notificationMessage = document.getElementById("notificationMessage");
+
+            notificationImage.src = imageUrl;
+            notificationMessage.textContent = message;
+            notification.style.display = "flex";
+
+            setTimeout(() => {
+                notification.style.display = "none";
+            }, 7000);
+        }
+
+        function closeNotification() {
+            const notification = document.getElementById("notification");
+            notification.style.display = "none";
         }
     </script>
 </body>

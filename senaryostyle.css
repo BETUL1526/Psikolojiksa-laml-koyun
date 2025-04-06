@@ -63,21 +63,46 @@ body {
     background-color: #218838;
 }
 
-.mesaj-kutusu {
-    position: fixed;
+.notification {
+    position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: #fff;
+    background-color: #ffebf0;
+    border: 2px solid #ff69b4;
+    border-radius: 16px;
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 300px;
     z-index: 1000;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
 }
 
-.mesaj-kutusu img {
-    width: 60px;
-    height: 60px;
+.notification img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.notification p {
+    margin: 0;
+    font-size: 1em;
+    color: #333;
+    text-align: center;
+}
+
+.notification button {
+    background-color: transparent;
+    border: none;
+    font-size: 1.2em;
+    cursor: pointer;
+    color: #ff69b4;
     margin-top: 10px;
+}
+
+.notification button:hover {
+    color: #ff1493;
 }

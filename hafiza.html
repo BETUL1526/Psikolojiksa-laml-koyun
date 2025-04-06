@@ -14,7 +14,7 @@
 
         body {
             text-align: center;
-            background-color: #222;
+            background-color: #ADD8E6; /* Arka plan rengini açık mavi olarak değiştirdik */
             color: white;
             font-family: Arial, sans-serif;
             display: flex;
@@ -81,40 +81,53 @@
         }
 
         .hidden {
-            background-color: #222;
-            color: #222;
+            background-color: #ADD8E6; /* Arka plan rengini açık mavi olarak değiştirdik */
+            color: #ADD8E6;
         }
 
         .matched {
             opacity: 0;
         }
 
-        #message {
+        #messageContainer {
+            text-align: center;
+            background-color: #FFFF99; /* Metin kutusunun rengini sarı olarak değiştirdik */
+            color: #333;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            animation: messageContainerAnimation 5s forwards;
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 36px;
-            color: white;
-            opacity: 0;
-            animation: messageAnimation 5s forwards;
+            display: none;
         }
 
-        @keyframes messageAnimation {
+        @keyframes messageContainerAnimation {
             0% {
                 opacity: 0;
-                transform: translate(-50%, -50%) scale(0.5);
-            }
-
-            50% {
-                opacity: 1;
-                transform: translate(-50%, -50%) scale(1.2);
             }
 
             100% {
                 opacity: 1;
-                transform: translate(-50%, -50%) scale(1);
             }
+        }
+
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #333;
+        }
+
+        .close-button:hover {
+            color: #007bff;
         }
 
         #goldContainer {
@@ -147,7 +160,11 @@
     </div>
 
     <div class="board" id="gameBoard"></div>
-    <div id="message"></div>
+    <div id="messageContainer">
+        <div id="message" style="font-weight: bold;"></div>
+        <div id="supportMessage"></div>
+        <button class="close-button" onclick="closeMessage()">×</button>
+    </div>
     <div id="goldContainer"></div>
 
     <script>
@@ -227,13 +244,22 @@
 
         function showMessage() {
             const messageDiv = document.getElementById('message');
+            const supportMessageDiv = document.getElementById('supportMessage');
             messageDiv.textContent = "Kendime güvenirim ve zorluklarla başa çıkarım!";
-            messageDiv.style.opacity = 1;
-
-            // Market'e yönlendirme 5 saniye sonra
-            setTimeout(() => {
-                window.location.href = "market.html";
-            }, 5000);
+            supportMessageDiv.innerHTML = `
+                <h3 style="font-weight: normal;">Zorluklarla Başa Çıkma Stratejileri</h3>
+                <ul>
+                    <li><strong>Olumlu Düşünmek:</strong> Olumsuz düşünceleri fark edip, bunları daha olumlu ve gerçekçi düşüncelerle değiştirin. "Başarısız olacağım" yerine "Elimden gelenin en iyisini yapacağım" demek gibi.</li>
+                    <li><strong>Problem Çözme:</strong> Karşılaştığınız sorunları küçük parçalara bölün ve adım adım çözüm yolları bulun. Her adımı yazın ve sırasıyla uygulayın.</li>
+                    <li><strong>Stres Yönetimi:</strong> Stresli hissettiğinizde derin nefes alın, meditasyon yapın veya yürüyüşe çıkın. Bu yöntemler, zihninizi ve bedeninizi sakinleştirir.</li>
+                    <li><strong>Destek Almak:</strong> Zor zamanlarda güvendiğiniz kişilerle konuşun veya bir terapistten yardım alın. Destek almak, kendinizi daha iyi hissetmenize yardımcı olur.</li>
+                    <li><strong>Geçmiş Başarıları Hatırlama:</strong> Daha önce başardığınız zorlukları hatırlayın. Bu, yeni zorluklarla başa çıkmanız için size motivasyon verir.</li>
+                    <li><strong>Uyku Düzeni:</strong> Her gün aynı saatte uyuyup uyanmaya özen gösterin. Düzenli ve kaliteli uyku, zorluklarla başa çıkmada önemlidir.</li>
+                </ul>
+            `;
+            const messageContainer = document.getElementById('messageContainer');
+            messageContainer.style.display = 'block';
+            messageContainer.style.opacity = 1;
         }
 
         function createGoldAnimation(card) {
@@ -248,6 +274,10 @@
                 const goldContainer = document.getElementById('goldContainer');
                 goldContainer.appendChild(gold);
             }, 0);
+        }
+
+        function closeMessage() {
+            window.location.href = "market.html";
         }
 
         createBoard();

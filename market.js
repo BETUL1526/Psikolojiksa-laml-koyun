@@ -14,16 +14,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 if (!ilkHediyeAlindi) {
                     localStorage.setItem("alinanHediye", imageUrl); // İlk hediyeyi kaydet
-                    alert("İlk hediye seçildi! Şimdi senaryo oyununa geçiyoruz.");
-                    window.location.href = "senaryo.html"; // Senaryoya yönlendir
+                    showNotification("İlk hediye seçildi! Şimdi senaryo oyununa geçiyoruz.", imageUrl);
+                    setTimeout(() => window.location.href = "senaryo.html", 8000); // Senaryoya yönlendir
                 } else if (!ikinciHediyeAlindi) {
                     localStorage.setItem("ikinciHediye", imageUrl); // İkinci hediyeyi kaydet
-                    alert("İkinci hediye seçildi! Şimdi bulmaca oyununa geçiyoruz.");
-                    window.location.href = "bulmaca.html"; // Bulmaca oyununa yönlendir
+                    showNotification("İkinci hediye seçildi! Şimdi bulmaca oyununa geçiyoruz.", imageUrl);
+                    setTimeout(() => window.location.href = "bulmaca.html", 8000); // Bulmaca oyununa yönlendir
                 } else if (!ucuncuHediyeAlindi) {
                     localStorage.setItem("ucuncuHediye", imageUrl); // Üçüncü hediyeyi kaydet
-                    alert("Üçüncü hediye seçildi! Şimdi kelime oyununa geçiyoruz.");
-                    window.location.href = "kelime_oyunu.html"; // Kelime oyununa yönlendir
+                    showNotification("Üçüncü hediye seçildi! Şimdi kelime oyununa geçiyoruz.", imageUrl);
+                    setTimeout(() => window.location.href = "kelime_oyunu.html", 8000); // Kelime oyununa yönlendir
                 }
             }
         });
@@ -57,3 +57,22 @@ document.addEventListener("DOMContentLoaded", function() {
         alert("Tebrikler! Oyunlar tamamlandı.");
     }
 });
+
+function showNotification(message, imageUrl) {
+    const notification = document.getElementById("notification");
+    const notificationImage = document.getElementById("notificationImage");
+    const notificationMessage = document.getElementById("notificationMessage");
+
+    notificationImage.src = imageUrl;
+    notificationMessage.textContent = message;
+    notification.style.display = "flex";
+
+    setTimeout(() => {
+        notification.style.display = "none";
+    }, 7000);
+}
+
+function closeNotification() {
+    const notification = document.getElementById("notification");
+    notification.style.display = "none";
+}
