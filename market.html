@@ -132,7 +132,7 @@
             <h2>Basketbol Topu</h2>
             <button onclick="buyItem('basketbol', 'https://image.pollinations.ai/prompt/basketbol-topu?width=200&height=200&nologo=true')">Satın Al</button>
         </div>
-        </div>
+    </div>
 
     <script>
         function buyItem(item, imageUrl) {
@@ -151,10 +151,14 @@
             alert(messages[item] || item + " alındı!");
 
             const ilkHediye = localStorage.getItem("alinanHediye");
-            localStorage.setItem("ikinciHediye", imageUrl);
 
-            if (localStorage.getItem("senaryoTamamlandi")) {
+            if (localStorage.getItem("bulmacaTamamlandi")) {
+                localStorage.removeItem("bulmacaTamamlandi");
+                localStorage.setItem("ucuncuHediye", imageUrl);
+                window.location.href = "kelime_oyunu.html";
+            } else if (localStorage.getItem("senaryoTamamlandi")) {
                 localStorage.removeItem("senaryoTamamlandi");
+                localStorage.setItem("ikinciHediye", imageUrl);
                 window.location.href = "bulmaca.html";
             } else if (ilkHediye) {
                 window.location.href = "senaryo.html";

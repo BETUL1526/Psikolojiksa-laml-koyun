@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tebrikler Kaşif!</title>
+    <link rel="stylesheet" href="mektup.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <div class="container">
+        <div class="button-container">
+            <button class="button button-buyuk-zarf" onclick="showFullLetter()">
+                <i class="fas fa-envelope fa-5x"></i>
+            </button>
+        </div>
+        <div id="fullLetterContainer">
+            <div class="letter-box">
+                <div id="letterContent">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showFullLetter() {
+            document.getElementById('fullLetterContainer').style.display = 'block';
+        }
+    </script>
+    <script src="mektup.js"></script>
+</body>
+</html>

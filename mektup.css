@@ -1,0 +1,116 @@
+body {
+    font-family: 'Georgia', serif; /* Daha mektupvari bir font */
+    background-color: #ffe6f2; /* Açık pembe arka plan */
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.container {
+    background-color: #f9f9f9; /* Mektup kağıdı rengi */
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 700px;
+    width: 100%;
+}
+
+h1 {
+    display: none; /* "Tebrikler Kaşif!" başlığını gizler */
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.button-buyuk-zarf {
+    background-color: #ff69b4; /* Büyük pembe zarf rengi */
+    color: #fff;
+    padding: 40px; /* Daha büyük bir alan */
+    border-radius: 20px; /* Köşeleri biraz yuvarlak */
+    border: none;
+    cursor: pointer;
+    font-size: 2em; /* İkon boyutu */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s ease;
+}
+
+.button-buyuk-zarf:hover {
+    background-color: #ec407a;
+}
+
+.button-buyuk-zarf i {
+    margin: 0;
+}
+
+#fullLetterContainer {
+    position: fixed; /* Sabit pozisyon, sayfa kaydırılsa bile aynı yerde kalır */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Kutuyu tam ortaya hizalar */
+    background-color: rgba(255, 255, 255, 0.9); /* Hafif şeffaf beyaz arka plan */
+    padding: 30px;
+    border-radius: 15px;
+    text-align: left;
+    white-space: pre-line;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    z-index: 1000; /* Diğer her şeyin üzerinde görünmesini sağlar */
+    display: none; /* Başlangıçta gizli */
+    max-width: 500px; /* Daha küçük bir maksimum genişlik */
+    max-height: 60vh; /* Daha küçük bir maksimum yükseklik (viewport height'ın %60'ı) */
+    overflow-y: auto; /* İçerik taşarsa kaydırma çubuğu gösterir */
+}
+
+#fullLetterContainer h2 {
+    color: #d63384; /* Pembe başlık rengi */
+    margin-top: 0;
+    border-bottom: 2px dashed #ccc;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+    text-align: center;
+    display: none; /* "Tebrik Mektubun" başlığını da gizler */
+}
+
+.letter-box {
+    background-color: #e0f2f7; /* Açık mavi/yeşil kutu arka planı */
+    border: 2px solid #80deea; /* Kenarlık */
+    border-radius: 10px;
+    padding: 20px;
+    font-style: italic; /* Yazıyı italik yapar */
+    text-align: left;
+    white-space: pre-line;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    color: #424242;
+    font-size: 1em;
+    line-height: 1.6;
+    position: relative; /* İkonlar için pozisyonlandırma bağlamı oluşturur */
+    padding: 30px; /* İkonlar için biraz daha iç boşluk */
+}
+
+.letter-box::before,
+.letter-box::after {
+    content: '\f004'; /* Kalp ikonu (Font Awesome) */
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 400; /* Regular stil */
+    color: #ff69b4; /* Pembe renk */
+    font-size: 1.2em;
+    position: absolute;
+}
+
+.letter-box::before {
+    top: 10px;
+    left: 10px;
+}
+
+.letter-box::after {
+    bottom: 10px;
+    right: 10px;
+}

@@ -115,6 +115,8 @@ document.addEventListener('DOMContentLoaded', function() {
             });
             feedbackArea.textContent = "";
             animationArea.innerHTML = ""; // Konfeti animasyonu kaldırıldı
+            localStorage.setItem("bulmacaTamamlandi", "true"); // Bulmaca tamamlandığını işaretle
+            window.location.href = "market.html"; // BULMACA SONUNDA MARKETE GİT
         }
     }
 

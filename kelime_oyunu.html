@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Duygu Kelime Oyunu</title>
+    <link rel="stylesheet" href="kelime_oyunu.css">
+    <style>
+        #karakterVeHediyelerKelime {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 20px; /* Oyun içeriğiyle boşluk bırakalım */
+        }
+
+        #karakterVeHediyelerKelime img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="oyun-alani">
+        <div id="karakterVeHediyelerKelime"></div>
+        <div id="ipucu-alani"></div>
+        <div id="kelime-alani"></div>
+        <input type="text" id="harf-giris" maxlength="1">
+        <div id="geri-bildirim" class="gizli"></div>
+        <div id="bdt-tepki-kutusu" class="gizli">
+            <p id="bdt-tepki-metni"></p>
+            <div id="tatli-item"></div>
+        </div>
+    </div>
+    <script src="kelime_oyunu.js"></script>
+</body>
+</html>

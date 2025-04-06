@@ -1,161 +1,59 @@
-// market.js
-
 document.addEventListener("DOMContentLoaded", function () {
-  const hediyeler = document.querySelectorAll(".hediye");
+    const hediyeler = document.querySelectorAll(".marketItem button"); // Butonlara tıklanmayı dinle
 
-  hediyeler.forEach((hediye) => {
-    hediye.addEventListener("click", () => {
-      const secilenHediye = hediye.getAttribute("data-path");
+    hediyeler.forEach((button) => {
+        button.addEventListener("click", function() {
+            const item = this.parentElement.querySelector("h2").textContent; // Ürün adını al
+            const imageUrl = this.parentElement.querySelector("img").src; // Ürün görselini al
 
-      if (secilenHediye) {
-        // 🎁 Hediye localStorage'a kaydediliyor
-        localStorage.setItem("alinanHediye", secilenHediye);
+            if (imageUrl) {
+                // 🎁 Hediye localStorage'a kaydediliyor
+                const ilkHediyeAlindi = localStorage.getItem("alinanHediye");
+                const ikinciHediyeAlindi = localStorage.getItem("ikinciHediye");
+                const ucuncuHediyeAlindi = localStorage.getItem("ucuncuHediye");
 
-        // 🧠 Kullanıcıya bilgi ver
-        alert("Hediye seçildi! Şimdi senaryo oyununa geçiyoruz.");
-
-        // 🎮 Senaryo oyununa yönlendirme
-        window.location.href = "senaryo.html";
-      }
+                if (!ilkHediyeAlindi) {
+                    localStorage.setItem("alinanHediye", imageUrl); // İlk hediyeyi kaydet
+                    alert("İlk hediye seçildi! Şimdi senaryo oyununa geçiyoruz.");
+                    window.location.href = "senaryo.html"; // Senaryoya yönlendir
+                } else if (!ikinciHediyeAlindi) {
+                    localStorage.setItem("ikinciHediye", imageUrl); // İkinci hediyeyi kaydet
+                    alert("İkinci hediye seçildi! Şimdi bulmaca oyununa geçiyoruz.");
+                    window.location.href = "bulmaca.html"; // Bulmaca oyununa yönlendir
+                } else if (!ucuncuHediyeAlindi) {
+                    localStorage.setItem("ucuncuHediye", imageUrl); // Üçüncü hediyeyi kaydet
+                    alert("Üçüncü hediye seçildi! Şimdi kelime oyununa geçiyoruz.");
+                    window.location.href = "kelime_oyunu.html"; // Kelime oyununa yönlendir
+                }
+            }
+        });
     });
-  });
 });
-şimdi bulmacaları yollayacağım  
-        durum: "Arkadaşın sana kırıcı bir şey söyledi.",
-        cevaplar: [
-            { metin: "Ona bağırırım.", dogru: false },
-            { metin: "Ona neden böyle söylediğini sorarım.", dogru: true },
-            { metin: "Ona küserim.", dogru: false },
-            { metin: "Onu görmezden gelirim.", dogru: false }
-        ]
-    },
-    {
-        durum: "Sınavdan düşük not aldın.",
-        cevaplar: [
-            { metin: "Kendimi aptal hissederim.", dogru: false },
-            { metin: "Nerede hata yaptığımı öğrenmeye çalışırım.", dogru: true },
-            { metin: "Sınavı umursamam.", dogru: false },
-            { metin: "Ağlarım.", dogru: false }
-        ]
-    },
-    {
-        durum: "Bir sunum yapman gerekiyor.",
-        cevaplar: [
-            { metin: "Çok heyecanlanırım.", dogru: false },
-            { metin: "Sunuma iyi hazırlanırım.", dogru: true },
-            { metin: "Sunum yapmaktan vazgeçerim.", dogru: false },
-            { metin: "Sunumu ertelerim.", dogru: false }
-        ]
-    },
-    {
-        durum: "Bir hata yaptın.",
-        cevaplar: [
-            { metin: "Kendimi suçlarım.", dogru: false },
-            { metin: "Hatayı düzeltmeye çalışırım.", dogru: true },
-            { metin: "Hatayı başkasının üzerine atarım.", dogru: false },
-            { metin: "Hatayı görmezden gelirim.", dogru: false }
-        ]
-    },
-    {
-        durum: "Bir karar vermen gerekiyor.",
-        cevaplar: [
-            { metin: "Karar vermekten kaçınırım.", dogru: false },
-            { metin: "Seçenekleri değerlendiririm.", dogru: true },
-            { metin: "Rastgele bir karar veririm.", dogru: false },
-            { metin: "Başkalarının ne dediğine göre karar veririm.", dogru: false }
-        ]
-    }
-];
 
-let senaryoIndex = 0;
-let dogruCevapSayisi = 0;
-let yanlisCevapSayisi = 0;
+// Sayfa yüklendiğinde alınan hediyeleri kontrol et ve yönlendirme yap
+document.addEventListener("DOMContentLoaded", function() {
+    const alinanHediye = localStorage.getItem("alinanHediye");
 
-//  Karakter ve hediye gösterimi
-function karakterVeHediyeGoster() {
-    const karakterPath = localStorage.getItem("secilenKarakter");
-    const hediyePath = localStorage.getItem("alinanHediye");
-
-    const container = document.getElementById("karakterVeHediye");
-    container.innerHTML = ""; // Önceki içeriği temizle
-
-    if (karakterPath) {
-        const karakterImg = document.createElement("img");
-        karakterImg.src = "assets/" + karakterPath;
-        karakterImg.style.width = "100px";
-        karakterImg.style.height = "100px";
-        karakterImg.alt = "Karakter";
-        container.appendChild(karakterImg);
+    // Eğer hediye alındıysa, alındığı mesajı göster
+    if (alinanHediye) {
+        document.getElementById("hediyeMesaj").innerText = "Alınan Hediye: " + alinanHediye;
     }
 
-    if (hediyePath) {
-        const hediyeImg = document.createElement("img");
-        hediyeImg.src = hediyePath;
-        hediyeImg.style.width = "100px";
-        hediyeImg.style.height = "100px";
-        hediyeImg.alt = "Hediye";
-        container.appendChild(hediyeImg);
-    }
-}
-
-//  Senaryo oyun fonksiyonları
-function senaryoGoster() {
-    const senaryo = senaryolar[senaryoIndex];
-    document.getElementById("durum").textContent = senaryo.durum;
-
-    const cevaplarDiv = document.getElementById("cevaplar");
-    cevaplarDiv.innerHTML = "";
-
-    senaryo.cevaplar.forEach((cevap) => {
-        const cevapBtn = document.createElement("button");
-        cevapBtn.textContent = cevap.metin;
-        cevapBtn.addEventListener("click", () => cevapKontrol(cevap.dogru));
-        cevaplarDiv.appendChild(cevapBtn);
-    });
-}
-
-function cevapKontrol(dogru) {
-    if (dogru) {
-        dogruCevapSayisi++;
-        mesajKutusuGoster("Harika bir seçim! Bu, durumu ele almanın etkili bir yolu.", "https://image.pollinations.ai/prompt/onay%20gif?width=200&height=200&nologo=true");
-    } else {
-        yanlisCevapSayisi++;
-        mesajKutusuGoster("Bu tepki, otomatik bir düşünce olabilir. Biraz daha derinlemesine düşünerek farklı bir seçenek bulabilirsin.", "https://image.pollinations.ai/prompt/tekrar%20dene%20png?width=200&height=200&nologo=true");
+    // Senaryo tamamlanmış mı kontrol et
+    if (localStorage.getItem("senaryoTamamlandi") === "true") {
+        localStorage.removeItem("senaryoTamamlandi"); // Senaryo tamamlandığı işaretini temizle
+        window.location.href = "market.html"; // Markete yönlendir
     }
 
-    if (yanlisCevapSayisi === 3) {
-        window.location.href = "https://piga-ai.onrender.com";
-    } else if (senaryoIndex === senaryolar.length - 1) {
-        oyunBitti();
-    } else {
-        senaryoIndex++;
-        senaryoGoster();
+    // Bulmaca tamamlanmış mı kontrol et
+    if (localStorage.getItem("bulmacaTamamlandi") === "true") {
+        localStorage.removeItem("bulmacaTamamlandi"); // Bulmaca tamamlandığı işaretini temizle
+        window.location.href = "market.html"; // Markete yönlendir
     }
-}
 
-function mesajKutusuGoster(mesaj, resim) {
-    const mesajKutusu = document.createElement("div");
-    mesajKutusu.classList.add("mesaj-kutusu");
-
-    const mesajMetni = document.createElement("p");
-    mesajMetni.textContent = mesaj;
-    mesajKutusu.appendChild(mesajMetni);
-
-    const mesajResmi = document.createElement("img");
-    mesajResmi.src = resim;
-    mesajKutusu.appendChild(mesajResmi);
-
-    document.body.appendChild(mesajKutusu);
-
-    setTimeout(() => {
-        document.body.removeChild(mesajKutusu);
-    }, 3000);
-}
-
-function oyunBitti() {
-    localStorage.setItem("senaryoTamamlandi", "true"); // Senaryonun tamamlandığını işaretle
-    window.location.href = "market.html"; // Markete geri dön
-}
-
-senaryoGoster();
-karakterVeHediyeGoster();
+    // Kelime oyunu tamamlanmış mı kontrol et
+    if (localStorage.getItem("kelimeTamamlandi") === "true") {
+        localStorage.removeItem("kelimeTamamlandi"); // Kelime oyunu tamamlandığı işaretini temizle
+        alert("Tebrikler! Oyunlar tamamlandı.");
+    }
+});
